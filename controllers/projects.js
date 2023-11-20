@@ -7,7 +7,7 @@ const getProjects = async (req, res) => {
         const totalCount = await ProjectSchema.countDocuments()
         if (search) {
             const query = {}
-            query.name = { $regex: search, $options: 'i' }
+            query.title = { $regex: search, $options: 'i' }
             projects = await ProjectSchema.find(query).sort({ _id: -1 })
             if (projects.length === 0) {
                 return res.status(404).json({ message: 'Proje bulunamadı.' });
@@ -29,6 +29,19 @@ const getProjectDetails = async (req, res) => {
     const { id } = req.params
     try {
         const project = await ProjectSchema.findById(id)
+        res.status(200).json({
+            status: 'OK',
+            project
+        })
+    } catch (err) {
+        return res.status(500).json({ message: err.message })
+    }
+}
+
+const getProjectBySlug = async (req, res) => {
+    const { slug } = req.params
+    try {
+        const project = await ProjectSchema.findOne({ slug: slug })
         res.status(200).json({
             status: 'OK',
             project
@@ -76,4 +89,4 @@ const deleteProject = async (req, res) => {
     }
 }
 
-module.exports = { getProjects, getProjectDetails, createProject, updateProject, deleteProject }
+module.exports = { getProjects, getProjectDetails, getProjectBySlug, createProject, updateProject, deleteProject }

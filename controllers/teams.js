@@ -1,82 +1,82 @@
-const TechSchema = require('../models/tech')
+const TeamSchema = require('../models/team')
 
-const getTechs = async (req, res) => {
+const getTeams = async (req, res) => {
     const { search } = req.query
     try {
-        let techs
-        const totalCount = await TechSchema.countDocuments()
+        let teams
+        const totalCount = await TeamSchema.countDocuments()
         if (search) {
             const query = {}
             query.name = { $regex: search, $options: 'i' }
-            techs = await TechSchema.find(query).sort({ _id: -1 })
-            if (techs.length === 0) {
+            teams = await TeamSchema.find(query).sort({ _id: -1 })
+            if (teams.length === 0) {
                 return res.status(404).json({ message: 'Teknoloji bulunamadı.' });
             }
         } else {
-            techs = await TechSchema.find().sort({ _id: -1 })
+            teams = await TeamSchema.find().sort({ _id: -1 })
         }
         res.status(200).json({
             status: 'OK',
             totalCount,
-            techs
+            teams
         })
     } catch (err) {
         return res.status(500).json({ message: err.message })
     }
 }
 
-const getTechDetails = async (req, res) => {
+const getTeamDetails = async (req, res) => {
     const { id } = req.params
     try {
-        const tech = await TechSchema.findById(id)
+        const team = await TeamSchema.findById(id)
         res.status(200).json({
             status: 'OK',
-            tech
+            team
         })
     } catch (err) {
         return res.status(500).json({ message: err.message })
     }
 }
 
-const createTech = async (req, res) => {
+const createTeam = async (req, res) => {
     try {
-        const newTech = await TechSchema.create(req.body)
+        const newTeam = await TeamSchema.create(req.body)
         res.status(200).json({
             status: 'OK',
-            newTech
+            newTeam
         })
     } catch (err) {
         return res.status(500).json({ message: err.message })
     }
 }
 
-const updateTech = async (req, res) => {
+const updateTeam = async (req, res) => {
     const { id } = req.params
     try {
         if (req.body.oldSort) {
-            await TechSchema.findOneAndUpdate({ sort: req.body.sort }, { sort: req.body.oldSort })
+            await TeamSchema.findOneAndUpdate({ sort: req.body.sort }, { sort: req.body.oldSort })
         }
-        const updateTech = await TechSchema.findByIdAndUpdate(id, req.body, { new: true })
+        const updateTeam = await TeamSchema.findByIdAndUpdate(id, req.body, { new: true })
         res.status(200).json({
             status: 'OK',
-            updateTech
+            updateTeam
         })
     } catch (err) {
         return res.status(500).json({ message: err.message })
     }
 }
 
-const deleteTech = async (req, res) => {
+const deleteTeam = async (req, res) => {
     const { id } = req.params
     try {
-        await TechSchema.findByIdAndRemove(id)
+        await TeamSchema.findByIdAndRemove(id)
         res.status(200).json({
             status: 'OK',
-            message: 'Kabiliyet başarıyla silindi.'
+            message: 'Takım üyesi başarıyla silindi.'
         })
     } catch (err) {
         return res.status(500).json({ message: err.message })
     }
 }
 
-module.exports = { getTechs, getTechDetails, createTech, updateTech, deleteTech }
+module.exports = { getTeams, getTeamDetails, createTeam, updateTeam, deleteTeam }

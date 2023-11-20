@@ -1,66 +1,81 @@
 const mongoose = require('mongoose')
 
-const ProjectSchema = new mongoose.Schema({
+const ThemeSchema = new mongoose.Schema({
+    logo: {
+        type: String,
+        required: true,
+        trim: true
+    },
     title: {
         type: String,
         required: true,
         trim: true
     },
-    slug: {
-        type: String,
-        required: true,
-        trim: true
-    },
-    type: {
-        type: String,
-        required: true,
-        trim: true
-    },
-    client: {
-        type: String,
-        required: true,
-        trim: true
-    },
-    space: {
-        type: String,
-        required: true,
-        trim: true
-    },
-    location: {
-        type: String,
-        required: true,
-        trim: true
-    },
-    country: {
-        type: String,
-        required: true,
-        trim: true
-    },
-    year: {
-        type: String,
-        required: true,
-        trim: true
-    },
-    info: {
-        type: String,
-        trim: true
-    },
     description: {
         type: String,
+        required: true,
         trim: true
     },
-    createdAt: {
-        type: Number,
-        default: new Date().getTime()
-    },
-    image: {
+    slogan: {
         type: String,
         required: true,
         trim: true
     },
-    photos: {
+    backgroundImage: {
+        type: String,
+        required: true,
+        trim: true
+    },
+    aboutusImage: {
+        type: String,
+        required: true,
+        trim: true
+    },
+    aboutusDescription: {
+        type: String,
+        required: true,
+        trim: true
+    },
+    quotes: {
         type: Array,
-    }
+        required: true,
+        trim: true
+    },
+    workingHours: {
+        type: String,
+        required: true,
+        trim: true
+    },
+    phone: {
+        type: String,
+        required: true,
+        trim: true
+    },
+    email: {
+        type: String,
+        required: true,
+        trim: true
+    },
+    address: {
+        type: String,
+        required: true,
+        trim: true
+    },
+    map: {
+        type: String,
+        required: true,
+        trim: true
+    },
+    latitude: {
+        type: String,
+        required: true,
+        trim: true
+    },
+    longitude: {
+        type: String,
+        required: true,
+        trim: true
+    },
 })
 
-module.exports = mongoose.model('projects', ProjectSchema)
+module.exports = mongoose.model('themes', ThemeSchema)

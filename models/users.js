@@ -23,7 +23,7 @@ const UserSchema = new mongoose.Schema({
         required: true
     },
     phone: String,
-    photoURL: {
+    image: {
         type: String,
         trim: true,
     },
